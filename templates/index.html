@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker News Summary</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Hacker News Summary</h1>
+    <div id="news-container"></div>
+    <script>
+        async function fetchNews() {
+            const response = await fetch('/api/news');
+            const news = await response.json();
+            const newsContainer = document.getElementById('news-container');
+            news.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'news-item';
+                div.innerHTML = `<h2>${item.title}</h2><p>${item.summary}</p>`;
+                newsContainer.appendChild(div);
+            });
+        }
+        fetchNews();
+    </script>
+</body>
+</html>
